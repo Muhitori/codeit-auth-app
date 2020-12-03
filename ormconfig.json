@@ -1,0 +1,13 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "username": "postgres",
+  "password": "postgres",
+  "database": "userDB",
+  "entities": [
+    "./server/entities/*.ts"
+  ],
+  "migrations": [
+    "./server/migrations/*.ts"
+  ]
+}

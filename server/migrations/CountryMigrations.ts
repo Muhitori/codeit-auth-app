@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CountryMigration implements MigrationInterface {
+export class CountryMigration20201203235635 implements MigrationInterface {
 	async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -23,7 +23,8 @@ export class CountryMigration implements MigrationInterface {
     );
 
     await queryRunner.query(
-			`INSERT INTO "Countries" VALUES ('Ukraine'), ('Russia'), ('USA');`
+			`INSERT INTO "Countries"("id", "name") VALUES (DEFAULT, $1), (DEFAULT, $2), (DEFAULT, $3);`,
+			['Ukraine', 'Russia', 'USA']
 		);
 	}
 

@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Country } from './Country';
 
 @Entity("Users")
 export class User {
@@ -25,4 +26,7 @@ export class User {
 
 	@CreateDateColumn({ type: "timestamp with time zone" })
 	public createdAt: Date;
+
+	@ManyToOne((type) => User, (user) => user.country)
+	public country: Country;
 }
