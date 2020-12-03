@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		"target": "ES2020",
-		"module": "commonjs",
+		"module": "esnext",
 		"lib": ["ES2020", "ESNEXT", "DOM"],
 		"incremental": true,
 		"baseUrl": ".",
@@ -17,11 +17,9 @@
 		"noUnusedParameters": false,
 		"forceConsistentCasingInFileNames": true,
 		"moduleResolution": "node",
-		//"importsNotUsedAsValues": "error",
 		"isolatedModules": true,
 		"skipLibCheck": true,
 		"removeComments": false,
-		// "noFallthroughCasesInSwitch": true,
 		"types": ["node"],
 		"jsx": "react",
 		"esModuleInterop": true,
@@ -29,12 +27,16 @@
 		"allowSyntheticDefaultImports": true,
 		"resolveJsonModule": true,
 		"emitDecoratorMetadata": true,
-		"newLine": "crlf"
+		"newLine": "crlf",
+		"allowJs": true,
+		"noFallthroughCasesInSwitch": true,
+		"noEmit": true
 	},
 	"exclude": [
 		"node_modules",
 		"babel.config.js",
 		"metro.config.js",
 		"jest.config.js"
-	]
+	],
+	"include": ["src"]
 }

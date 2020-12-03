@@ -1,7 +1,6 @@
-import app from "./app";
+import { App } from "./app";
 
-const PORT = 3000;
+const app: App = new App();
 
-app.listen(PORT, () => {
-	console.info("Express server listening on http://localhost:3000");
-});
+app.listen();
+
