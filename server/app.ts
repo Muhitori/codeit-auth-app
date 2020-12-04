@@ -1,23 +1,39 @@
 import express from "express";
-import { Routes } from "./routes/Routes";
 import bodyParser from "body-parser";
+import session from "express-session";
+import uuid from 'uuid';
 import cors from "cors";
-import makeConnection from "./connection/connection";
+import { Routes } from "./routes/Routes";
+import makeConnection from "./connection/connection"
 
-export class App {
+class App {
 	public app: express.Application;
-	routePrv: Routes;
+	routes: Routes;
 	constructor() {
 		this.app = express();
+
+		makeConnection();
+
 		this.app.use(bodyParser.json());
+
+		this.app.use(session({
+			genid: (req) => {
+				console.log(req.sessionID);
+				return uuid.v4()
+			},
+			secret: "some secret",
+			resave: false,
+			saveUninitialized: true,
+			cookie:  { sameSite: 'none', secure: true }
+		}));
+
 		this.app.use(cors());
 
 		this.app.use(bodyParser.urlencoded({ extended: false }));
 
-		this.routePrv = new Routes();
-		this.routePrv.routes(this.app);
+		this.routes = new Routes();
+		this.routes.routes(this.app);
 
-		makeConnection();
 	}
 
 	public listen() {
@@ -30,3 +46,5 @@ export class App {
 	}
 
 }
+
+export default App;

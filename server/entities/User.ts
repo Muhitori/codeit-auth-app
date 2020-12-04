@@ -1,5 +1,6 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Country } from './Country';
+import * as bcrypt from "bcryptjs";
 
 @Entity("Users")
 export class User {
@@ -29,4 +30,21 @@ export class User {
 
 	@ManyToOne((type) => User, (user) => user.country)
 	public country: Country;
+
+	constructor(email: string, login: string, realName: string, password: string, birthDate: Date, countryId: string) {
+		this.email = email;
+		this.login = login;
+		this.realName = realName;
+		this.password = password;
+		this.birthDate = birthDate;
+		this.countyId = countryId;
+	}
+
+	async hashPassword() {
+		this.password = bcrypt.hashSync(this.password, '18');
+	}
+
+	async unecryptedPasswordIsValid(password: string) {
+		return bcrypt.compare(password, this.password);
+	}
 }

@@ -1,9 +1,10 @@
 {
-  "type": "postgres",
-  "host": "localhost",
   "username": "postgres",
   "password": "postgres",
   "database": "userDB",
+  "host": "127.0.0.1",
+  "name": "default",
+  "type": "postgres",
   "entities": [
     "./server/entities/*.ts"
   ],

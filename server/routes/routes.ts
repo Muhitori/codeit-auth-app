@@ -1,10 +1,13 @@
-import { Application, Request, Response } from "express";
+import { Application, Request, Response, Router } from "express";
 import { AuthController } from "../controllers/AuthController";
+import { AuthMiddleware } from "../middlewares/AuthMiddleware";
 
 class Routes {
 	private controller: AuthController;
+	private authMiddleware: AuthMiddleware;
 	constructor() {
 		this.controller = new AuthController();
+		this.authMiddleware = new AuthMiddleware();
 	}
 
 	routes(app: Application): void {
@@ -15,10 +18,16 @@ class Routes {
 		});
 
 		app
-      .route("/users")
+			.route("/")
+			.post([this.authMiddleware.checkJwt], this.controller.register)
     
 		app
-			.route("/users/:userId")
+			.route("/login/:emailOrLogin")
+			.get([this.authMiddleware.checkJwt], this.controller.login);
+		
+		app
+			.route("/logout")
+			.get([this.authMiddleware.checkJwt], this.controller.logout);
 	}
 }
 

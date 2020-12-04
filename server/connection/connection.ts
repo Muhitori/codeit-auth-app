@@ -2,7 +2,7 @@ import { createConnection } from "typeorm";
 import  path  from 'path';
   
 async function makeConnection () {
-  const connection = await createConnection({
+  await createConnection({
     username: "postgres",
     password: "postgres",
     database: "userDB",
