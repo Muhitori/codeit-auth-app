@@ -1,0 +1,60 @@
+.signin-content {
+	height: 400px;
+	width: 500px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+input {
+	width: 90%;
+	height: 35px;
+	margin: 10px;
+	border-radius: 8px;
+	border: 2px solid grey;
+	outline: none;
+}
+
+input:focus {
+	border: 2px solid rgb(231, 221, 162);
+	background-color: rgb(214, 231, 236);
+	outline: none;
+}
+
+button {
+	margin: 5px;
+	height: 30px;
+	width: 100px;
+	border-radius: 4px;
+	background: linear-gradient(145deg, #d5eaf6, #b3c5cf);
+	box-shadow: 2px 2px 6px #a9bac4, -2px -2px 6px #e5fcff;
+	outline: none;
+}
+
+label {
+	width: 100%;
+}
+
+button:active {
+	outline: none;
+	background: #c7dbe6;
+	box-shadow: inset 2px 2px 6px #a9bac4, inset -2px -2px 6px #e5fcff;
+}
+
+.Form {
+	text-align: center;
+}
+
+a {
+	color: blue;
+}
+
+a:hover {
+	color: red;
+	cursor: pointer;
+}
+
+.error {
+	border: 2px solid red;
+}

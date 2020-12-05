@@ -1,0 +1,41 @@
+.general {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	border-radius: 50px;
+	background: #ffffff;
+	box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
+}
+
+ul {
+	display: flex;
+	justify-content: center;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	width: 100%;
+	background: #fff;
+	box-shadow: 1px 1px 3px #c2c5c6;
+	border-radius: 50px 50px 0 0;
+}
+
+li {
+	float: left;
+	width: 50%;
+}
+
+li a {
+	display: block;
+	color: #777;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+li a:hover {
+	color: #000;
+	background: #e1e7ea;
+	box-shadow: inset -20px 20px 100px #c2c7c9, inset 20px -20px 100px #ffffff;
+}

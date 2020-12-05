@@ -4,16 +4,15 @@ import { User } from '../entities/User'
 import { CountriesController } from './CountriesController';
 import { UsersController } from './UsersController';
 import config from "../config/config"
-import Container, { Service } from 'typedi';
 
-@Service()
+
 export class AuthController {
 	private readonly countries: CountriesController;
 	private readonly users: UsersController;
 
 	constructor() {
-		this.countries = Container.get(CountriesController);
-		this.users = Container.get(UsersController);
+		this.countries = new CountriesController();
+		this.users = new UsersController();
 	}
 
 	async login(request: Request, response: Response) {
@@ -45,7 +44,7 @@ export class AuthController {
 
 	async register(request: Request, response: Response) {
 		try {
-			let requestUser = request.body as User;
+			let requestUser = request.body;
 
 			let user: User = new User(
 				requestUser.email,
@@ -53,7 +52,7 @@ export class AuthController {
 				requestUser.realName,
 				requestUser.password,
 				requestUser.birthDate,
-				await this.countries.getCountryIdByName(requestUser.country.name)
+				await this.countries.getCountryIdByName(requestUser.countryName)
 			);
 
 			await user.hashPassword();

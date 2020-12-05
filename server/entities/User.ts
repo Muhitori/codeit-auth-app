@@ -23,7 +23,7 @@ export class User {
 	public birthDate: Date;
 
 	@Column("uuid")
-	public countyId: string;
+	public countryId: string;
 
 	@CreateDateColumn({ type: "timestamp with time zone" })
 	public createdAt: Date;
@@ -37,7 +37,7 @@ export class User {
 		this.realName = realName;
 		this.password = password;
 		this.birthDate = birthDate;
-		this.countyId = countryId;
+		this.countryId = countryId;
 	}
 
 	async hashPassword() {

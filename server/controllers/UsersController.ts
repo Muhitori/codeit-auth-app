@@ -1,4 +1,3 @@
-import { Inject, Service } from 'typedi';
 import { getConnection, Repository } from "typeorm";
 import { User } from "../entities/User";
 
