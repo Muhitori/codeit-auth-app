@@ -32,9 +32,8 @@ export class AuthController {
 				throw new Error("Invalid password!");
 			}
 
-			const newToken = jwt.sign({ userId: user.id, email: user.email, login: user.login }, config.jwtSecret, {
-				expiresIn: "1h",
-			});
+			const newToken = jwt.sign({ userId: user.id},
+				config.jwtSecret, { expiresIn: "1h"});
 			
 			return response.send(newToken);
 		} catch (error) {
@@ -58,12 +57,8 @@ export class AuthController {
 			await user.hashPassword();
 
 			const newToken = jwt.sign(
-				{ userId: user.id, email: user.email, login: user.login },
-				config.jwtSecret,
-				{
-					expiresIn: "1h",
-				}
-			);
+				{ userId: user.id},
+				config.jwtSecret, { expiresIn: "1h"});
 
 			await this.users.createUser(user);
 

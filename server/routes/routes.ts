@@ -11,19 +11,20 @@ class Routes {
 	}
 
 	routes(app: Application): void {
-		app.route("/").get((request: Request, response: Response) => {
+		app.route("/")
+			.get((request: Request, response: Response) => {
 			response.status(200).send({
 				message: "GET request successful.",
 			});
 		});
 
 		app
-			.route("/")
+			.route("/signup")
 			.post([this.authMiddleware.checkJwt], this.controller.register)
     
 		app
-			.route("/login/:emailOrLogin")
-			.get([this.authMiddleware.checkJwt], this.controller.login);
+			.route("/signin")
+			.post([this.authMiddleware.checkJwt], this.controller.login);
 		
 		app
 			.route("/logout")

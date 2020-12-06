@@ -12,10 +12,10 @@ export class Layout extends React.Component {
 			<div className='general'>
 				<ul>
 					<li>
-						<a href='/signin' type="button">Lest sign in!</a>
+						<a href='/signin'>Lest sign in!</a>
 					</li>
 					<li>
-						<a href='/signup' type="button">Lest sign up!</a>
+						<a href='/signup'>Lest sign up!</a>
 					</li>
 				</ul>
 				<BrowserRouter>

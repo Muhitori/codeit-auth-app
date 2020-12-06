@@ -42,17 +42,8 @@ button:active {
 	box-shadow: inset 2px 2px 6px #a9bac4, inset -2px -2px 6px #e5fcff;
 }
 
-.Form {
-	text-align: center;
-}
-
-a {
-	color: blue;
-}
-
-a:hover {
+p {
 	color: red;
-	cursor: pointer;
 }
 
 .error {
