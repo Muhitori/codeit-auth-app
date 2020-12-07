@@ -1,7 +1,8 @@
 import express from "express";
 import bodyParser from "body-parser";
 import session from "express-session";
-import uuid from 'uuid';
+import { v4 } from 'uuid';
+import crypto  from 'crypto';
 import cors from "cors";
 import { Routes } from "./routes/Routes";
 import makeConnection from "./connection/connection"
@@ -19,7 +20,11 @@ class App {
 		this.app.use(session({
 			genid: (req) => {
 				console.log(req.sessionID);
-				return uuid.v4()
+				return crypto
+					.createHash("sha256")
+					.update(v4())
+					.update(crypto.randomBytes(256))
+					.digest("hex");
 			},
 			secret: "some secret",
 			resave: false,

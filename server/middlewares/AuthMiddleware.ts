@@ -2,8 +2,8 @@ import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 import config from "../config/config";
 export class AuthMiddleware {
-	public checkJwt(request: Request, response: Response, next: NextFunction) {
-    const token: string = request.headers["authorization"] as string;
+  public checkJwt(request: Request, response: Response, next: NextFunction) {
+    const token: string = request.headers["authorization"];
     let jwtPayload: any = {};
 
     try { 

@@ -22,7 +22,7 @@ export class Layout extends React.Component {
 					<Switch>
 						<Route path='/signin' component={SignIn} />
 						<Route path='/signup' component={SignUp} />
-						<Route path='/' component={Home} />
+						<Route exact path={['/', '/home']} component={Home} />
 					</Switch>
 				</BrowserRouter>
 			</div>

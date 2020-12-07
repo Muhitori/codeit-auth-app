@@ -1,35 +1,36 @@
-import { getConnection, Repository } from "typeorm";
+import { response } from 'express';
+import { getRepository } from "typeorm";
 import { User } from "../entities/User";
 
 export class UsersController {
-	private repository: Repository<User>;
-
-	getRepository() {
-		this.repository = getConnection().getRepository(User);
+	getCurrentUser(id: string) {
+		try {
+			let user = getRepository(User).findOne({
+				select: ['email', 'login'],
+				where: id
+			});
+			return response.send(200).send({ user: user });
+		} catch (error) {
+			return response.send(400).send({message: 'Need to signup!'});
+		}
 	}
+
 	public async createUser(user: User) {
-		this.getRepository();
-		this.repository.insert(user);
+		await getRepository(User).insert(user);
 	}
 
 	public async checkEmail(email: string) {
-		this.getRepository();
-		return this.repository
+		return await getRepository(User)
 			.findOne({
-				where: {
-					email,
-				},
+				where: email
 			})
 			.then((user: User) => !!user);
 	}
 
 	public async checkLogin(login: string) {
-		this.getRepository();
-		return this.repository
+		return await getRepository(User)
 			.findOne({
-				where: {
-					login,
-				},
+				where: login
 			})
 			.then((user: User) => !!user);
 	}
@@ -38,34 +39,18 @@ export class UsersController {
 		email: string,
 		login: string
 	): Promise<boolean> {
-		this.getRepository();
-		return this.repository
+		return await getRepository(User)
 			.findOne({
-				where: [
-					{
-						email,
-					},
-					{
-						login,
-					},
-				],
+				where: [{ email }, { login }],
 			})
 			.then((user: User) => !!user);
 	}
 
 	public async getUserByEmailOrLogin(email: string, login: string): Promise<User> {
-		this.getRepository();
 		try {
-			return this.repository
+			return await getRepository(User)
 				.findOne({
-					where: [
-						{
-							email,
-						},
-						{
-							login,
-						},
-					],
+					where: [{ email }, { login }]
 				})
 				.then((user: User) => user);
 		} catch (error) {

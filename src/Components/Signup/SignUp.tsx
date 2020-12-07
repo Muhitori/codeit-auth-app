@@ -1,74 +1,126 @@
 import React from "react";
-import './SignUp.css';
+import { User } from '../../Models/User';
+import { Country } from "../../Models/Country";
+import { CountryService } from '../../Services/Country.service';
+import { AuthService } from "../../Services/Auth.service";
+
+import moment from 'moment';
 import DatePicker from 'react-datepicker';
+import { Redirect } from "react-router-dom";
 
 import "react-datepicker/dist/react-datepicker.css";
+import "./SignUp.css";
+
+
 
 interface State {
-		email: string,
-		login: string,
-		realName: string,
-		password: string,
-		birthDate: Date,
-		countryName: string,
-		agreement: boolean,
-		message: string
+	user: User;
+	countries: Country[],
+	agreement: boolean;
+	message: string;
+	redirectToHome: boolean;
 }
 
-interface Props {
-	userPostFetch: any
-}
+export class SignUp extends React.Component<any, State> {
+	private countryService: CountryService;
+	private authService: AuthService;
 
-export class SignUp extends React.Component<Props, State> {
-
-
-	constructor(props: Props) {
+	constructor(props) {
 		super(props);
 
 		this.state = {
-			email: "",
-			login: "",
-			realName: "",
-			password: "",
-			birthDate: new Date(),
-			countryName: "",
+			user: {
+				email: "",
+				login: "",
+				realName: "",
+				password: "",
+				birthDate: new Date(),
+				countryName: "",
+			},
+			countries: [],
 			agreement: false,
-			message: ""
+			message: "",
+			redirectToHome: false
 		};
+
+		this.countryService = new CountryService();
+		this.authService = new AuthService();
 	}
 
+	async componentDidMount() {
+		this.setState({
+			countries: await this.countryService.getCountries(),
+		});
+		this.setState({
+			user: {
+				...this.state.user,
+				countryName: this.state.countries[0].name,
+			},
+		});
+	}
 	handleDate = (date: Date) => {
 		this.setState({
-			birthDate: date
+			user: {
+				...this.state.user,
+				birthDate: date,
+			},
 		});
-	}
+	};
 
-	handleChange = event => {
-		if (event.target.name === "assignment") {
-			this.setState<never>({
-				[event.target.name]: !!event.target.checked,
+	handleCountry = (event) => {
+			this.setState({
+				user: {
+					...this.state.user,
+					countryName: event.target.selected,
+				},
 			});
-			return;
-		}
+	};
+	handleAgreement = (event) => {
 		this.setState<never>({
-			[event.target.name]: event.target.value
+			agreement: event.target.checked,
 		});
-	}
+	};
 
-	handleSubmit = event => {
+	handleChange = (event) => {
+		this.setState<never>({
+			user: {
+				...this.state.user,
+				[event.target.name]: event.target.value,
+			},
+		});
+	};
+
+	handleSubmit = (event) => {
 		event.preventDefault();
 
 		if (!this.state.agreement) {
 			this.setState({
-				message: "Accept user agreement!"
+				message: "Accept user agreement!",
 			});
 			return;
 		}
-		console.log(this.state);
-		//this.props.userPostFetch(this.state);
-	}
-	
+		this.authService.register(this.state.user)
+			.then((data) => {
+					this.setState({
+						redirectToHome: true,
+					});
+			})
+	};
+
 	render() {
+
+		if (this.state.redirectToHome)
+			return <Redirect push to='/home' />;
+
+		let options = [];
+		this.state.countries.forEach((country, index) => {
+			options.push(
+				<option key={index} value={country.name}>
+					{country.name}
+				</option>
+			);
+		});
+
 		return (
 			<div>
 				<form onSubmit={this.handleSubmit} className='signup-content'>
@@ -77,7 +129,7 @@ export class SignUp extends React.Component<Props, State> {
 							type='text'
 							name='email'
 							placeholder='Enter email'
-							value={this.state.email}
+							value={this.state.user.email}
 							onChange={this.handleChange}
 						/>
 					</label>
@@ -86,7 +138,7 @@ export class SignUp extends React.Component<Props, State> {
 							type='text'
 							name='login'
 							placeholder='Enter login'
-							value={this.state.login}
+							value={this.state.user.login}
 							onChange={this.handleChange}
 						/>
 					</label>
@@ -95,7 +147,7 @@ export class SignUp extends React.Component<Props, State> {
 							type='text'
 							name='realName'
 							placeholder='Enter your name'
-							value={this.state.realName}
+							value={this.state.user.realName}
 							onChange={this.handleChange}
 						/>
 					</label>
@@ -104,33 +156,35 @@ export class SignUp extends React.Component<Props, State> {
 							type='password'
 							name='password'
 							placeholder='Enter password'
-							value={this.state.password}
+							value={this.state.user.password}
 							onChange={this.handleChange}
 						/>
 					</label>
 					<label htmlFor='birthDate'>
 						<DatePicker
-							dateFormat='dd-mm-yyyy'
+							dateFormat={moment(this.state.user.birthDate).format(
+								"DD/MM/YYYY"
+							)}
 							name='birthDate'
+							selected={this.state.user.birthDate}
 							onChange={this.handleDate}
-							selected={this.state.birthDate}
 						/>
 					</label>
 					<label htmlFor='countryName'>
-						<input
-							type='text'
+						Pick your country:{" "}
+						<select
 							name='countryName'
-							placeholder='Enter your country'
-							value={this.state.countryName}
-							onChange={this.handleChange}
-						/>
+							value={this.state.user.countryName}
+							onChange={this.handleChange}>
+							{options}
+						</select>
 					</label>
 					<label htmlFor='agreement'>
 						<input
 							type='checkbox'
 							name='agreement'
 							checked={this.state.agreement}
-							onChange={this.handleChange}
+							onChange={this.handleAgreement}
 						/>
 						{"Do you accept user agreement?"}
 					</label>
@@ -142,8 +196,4 @@ export class SignUp extends React.Component<Props, State> {
 			</div>
 		);
 	}
-
-//	public mapDispatchToProps = dispatch => ({
-//		userPostFetch: userInfo => dispatch(userPostFetch(userInfo))
-//	});
 }

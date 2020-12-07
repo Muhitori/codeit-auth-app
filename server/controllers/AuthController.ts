@@ -7,35 +7,35 @@ import config from "../config/config"
 
 
 export class AuthController {
-	private readonly countries: CountriesController;
-	private readonly users: UsersController;
 
-	constructor() {
-		this.countries = new CountriesController();
-		this.users = new UsersController();
-	}
 
 	async login(request: Request, response: Response) {
 		try {
+			const users = new UsersController();
 			const { emailOrLogin, password } = request.body;
 
-			const user: User = await this.users.getUserByEmailOrLogin(
+			const user: User = await users.getUserByEmailOrLogin(
 				emailOrLogin,
 				emailOrLogin
 			);
 
 			if (!user) {
-				throw new Error("Email or login is invalid!");
+				return response.status(401).json({ message: "Invalid email or login!" });
 			}
 
 			if (!user.unecryptedPasswordIsValid(password)) {
-				throw new Error("Invalid password!");
+				return response.status(401).json({ message: "Invalid password!" });
 			}
 
 			const newToken = jwt.sign({ userId: user.id},
 				config.jwtSecret, { expiresIn: "1h"});
 			
-			return response.send(newToken);
+			return response.send({
+				accessToken: newToken,
+				id: user.id,
+				login: user.login,
+				email: user.email
+			});
 		} catch (error) {
 			return response.status(400).json({ message: error.message })
 		}
@@ -43,7 +43,14 @@ export class AuthController {
 
 	async register(request: Request, response: Response) {
 		try {
-			let requestUser = request.body;
+			const users = new UsersController();
+			const countries = new CountriesController();
+			let requestUser = request.body.user;
+
+			console.log(requestUser.countryName);
+			const countryId = await countries.getCountryIdByName(
+				requestUser.countryName
+			);
 
 			let user: User = new User(
 				requestUser.email,
@@ -51,7 +58,7 @@ export class AuthController {
 				requestUser.realName,
 				requestUser.password,
 				requestUser.birthDate,
-				await this.countries.getCountryIdByName(requestUser.countryName)
+				countryId
 			);
 
 			await user.hashPassword();
@@ -60,16 +67,22 @@ export class AuthController {
 				{ userId: user.id},
 				config.jwtSecret, { expiresIn: "1h"});
 
-			await this.users.createUser(user);
+			await users.createUser(user);
 
-			return response.send(newToken);
+			return response.send({
+				accessToken: newToken,
+				user: user.id,
+				login: user.login,
+				email: user.email,
+			});
 		} catch (error) {
       return response.status(400).json({ message: error.message });
 		}
 	}
 
 	async checkEmail(request: Request, response: Response) {
-		let isEmail = this.users.checkEmail(request.body.email);
+		const users = new UsersController();
+		let isEmail = await users.checkEmail(request.body.email);
 
 		if (isEmail) {
 			return response
@@ -82,7 +95,8 @@ export class AuthController {
 	}
 
 	async checkLogin(request: Request, response: Response) {
-		let isLogin = this.users.checkEmail(request.body.login);
+		const users = new UsersController();
+		let isLogin = await users.checkEmail(request.body.login);
 
 		if (isLogin) {
 			return response
@@ -94,8 +108,9 @@ export class AuthController {
 			.json({ message: "Login is already taken!", isLogin });
 	}
 
-  async checkEmailAndLogin(request: Request, response: Response) {
-    let isEmailOrLogin = this.users.checkEmailAndLogin(request.body.email, request.body.login);
+	async checkEmailAndLogin(request: Request, response: Response) {
+		const users = new UsersController();
+    let isEmailOrLogin = await users.checkEmailAndLogin(request.body.email, request.body.login);
 
     if (isEmailOrLogin) {
       return response

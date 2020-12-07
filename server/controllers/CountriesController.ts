@@ -1,32 +1,26 @@
 import { Request, Response } from 'express';
-import { getConnection, Repository } from 'typeorm';
+import { getRepository } from 'typeorm';
 import { Country } from '../entities/Country';
-
 export class CountriesController {
-  private repository: Repository<Country>;
-  
-  getRepository() {
-    this.repository = getConnection().getRepository(Country);
-  }
 
-  public async getCountries(request: Request, response: Response) {
-    this.getRepository();
-		const countries: Country[] = await this.repository.find();
+	public async getCountryNames(request: Request, response: Response) {
+		const countries: Country[] = await getRepository(Country)
+			.find({
+				select: ['name']
+			})
 		return response.status(200).json(countries);
 	}
 
-  public async getCountryIdByName(name: string): Promise<string> {
-    this.getRepository();
-		try {
-			return this.repository
-				.findOne({
-					where: {
-						name,
-					},
-				})
-				.then((country: Country) => country.id);
-		} catch (e) {
-			console.log("Country get error!");
-		}
+	public async getCountryIdByName(name: string): Promise<string> {
+		let repository = getRepository(Country);
+		return repository
+			.findOne({
+				where: {
+					name
+				},
+			})
+			.then((country: Country) => {
+				return country.id
+			});
 	}
 }
