@@ -5,6 +5,7 @@ import { v4 } from 'uuid';
 import crypto  from 'crypto';
 import cors from "cors";
 import { Routes } from "./routes/Routes";
+import path from 'path';
 import makeConnection from "./connection/connection"
 
 class App {
@@ -37,6 +38,11 @@ class App {
 
 		this.routes = new Routes();
 		this.routes.routes(this.app);
+
+		this.app.use(express.static(path.resolve(`${__dirname}/../build`)));
+		this.app.get("*", (req, res) => {
+			res.sendFile(path.resolve(`${__dirname}/../build/index.html`));
+		});
 
 	}
 
