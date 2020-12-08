@@ -47,8 +47,6 @@ class App {
 	}
 
 	public listen() {
-		const PORT = process.env.PORT || 9000;
-		const ENV = process.env.NODE_ENV || "development";
 
 		this.app.listen(PORT, () => {
 			process.stdout.write(`App listening on port ${PORT} in ${ENV} mode\n`);
@@ -57,4 +55,4 @@ class App {
 
 }
 
-export default App;
+export default new App().app;

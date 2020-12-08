@@ -1,7 +1,9 @@
-import App from "./app";
+import app from "./app";
 
-const app: App = new App();
 
-app.listen();
+const PORT = process.env.PORT || 9000;
+const ENV = process.env.NODE_ENV || "development";
 
-module.exports = {};
+app.listen(PORT, () => {
+  process.stdout.write(`App listening on port ${PORT} in ${ENV} mode\n`);
+});
