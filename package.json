@@ -51,13 +51,10 @@
     "start": "concurrently \"react-scripts start\" \"ts-node server/index.ts\"",
     "migration:up": "ts-node ./node_modules/typeorm/cli.js migration:run",
     "migration:down": "ts-node ./node_modules/typeorm/cli.js migration:revert",
-    "migration-prod:up": "node ./dist/scripts/migration.js",
-    "migration-prod:down": "node ./node_modules/typeorm/cli.js migration:revert",
+    "migration-prod:up": "ts-node ./dist/scripts/migration.ts",
     "build": "run-s build:client build:server",
     "build:client": "react-scripts build",
-    "build:server": "tsc --project tsconfig-server.json",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build:server": "tsc --project tsconfig-server.json"
   },
   "eslintConfig": {
     "extends": [
