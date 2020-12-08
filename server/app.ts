@@ -4,8 +4,7 @@ import session from "express-session";
 import { v4 } from 'uuid';
 import crypto  from 'crypto';
 import cors from "cors";
-import { Routes } from "./routes/routes";
-import path from 'path';
+import { Routes } from "./routes/Routes";
 import makeConnection from "./connection/connection"
 
 class App {
@@ -39,13 +38,17 @@ class App {
 		this.routes = new Routes();
 		this.routes.routes(this.app);
 
-		this.app.use(express.static(path.resolve(`${__dirname}/../build`)));
-		this.app.get("*", (req, res) => {
-			res.sendFile(path.resolve(`${__dirname}/../build/index.html`));
-		});
+	}
 
+	public listen() {
+		const PORT = process.env.PORT || 9000;
+		const ENV = process.env.NODE_ENV || "development";
+
+		this.app.listen(PORT, () => {
+			process.stdout.write(`App listening on port ${PORT} in ${ENV} mode\n`);
+		});
 	}
 
 }
 
-export default new App().app;
+export default App;
