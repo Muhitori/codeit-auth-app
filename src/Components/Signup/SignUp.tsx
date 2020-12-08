@@ -196,6 +196,7 @@ export class SignUp extends React.Component<any, State> {
 						/>
 					</label>
 					<label htmlFor='birthDate'>
+						{"Enter your birth date: "}
 						<DatePicker
 							dateFormat={moment(this.state.user.birthDate).format(
 								"DD/MM/YYYY"
