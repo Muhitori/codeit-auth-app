@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { User } from '../entities/User'
 import { CountriesController } from './CountriesController';
 import { UsersController } from './UsersController';
-import config from "../config/config"
+import config from "../config/secretConfig"
 
 
 export class AuthController {

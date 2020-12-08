@@ -15,8 +15,8 @@ class App {
 		this.app = express();
 	}
 
-	public async init() {
-		await makeConnection();
+	public init() {
+		makeConnection();
 
 		this.app.use(bodyParser.json());
 
