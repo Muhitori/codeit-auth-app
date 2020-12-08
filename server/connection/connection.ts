@@ -1,4 +1,4 @@
-import { createConnection, getConnection } from "typeorm";
+import { createConnection} from "typeorm";
 import  path  from 'path';
 import { Country } from '../entities/Country';
 import { User } from '../entities/User';
