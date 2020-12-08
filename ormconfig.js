@@ -1,8 +1,5 @@
 module.exports = {
-	username: process.env.POSTGRES_USER,
-	password: process.env.POSTGRES_PASSWORD,
-	database: process.env.POSTGRES_DATABASE,
-	host: process.env.POSTGRES_HOST,
+	url: "postgres://deptpxctnrksxu:d3e43d392ea28fae6f1d692c3adca8be055c77e7e567a249ddbe8ecc51c23c00@ec2-54-75-248-49.eu-west-1.compute.amazonaws.com:5432/d8eikoefbc936b",
 	ssl: true,
 	extra: {
 		ssl: {
