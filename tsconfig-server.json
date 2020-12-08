@@ -13,7 +13,7 @@
 		"noImplicitThis": false,
 		"noImplicitReturns": false,
 		"noUnusedLocals": false,
-		"outDir": "build/server",
+		"outDir": "dist/server",
 		"noUnusedParameters": false,
 		"forceConsistentCasingInFileNames": true,
 		"moduleResolution": "node",
@@ -30,6 +30,7 @@
 		"allowJs": true,
 		"noFallthroughCasesInSwitch": true,
 		"noEmit": false,
+		"sourceMap": true,
 		"module": "commonjs",
 		"jsx": "react-jsx"
 	},
@@ -47,5 +48,6 @@
 		"build",
 		"dist"
 	],
-	"include": ["server"]
+	"include": ["server"],
+	"extends": "./tscogfin.json"
 }
