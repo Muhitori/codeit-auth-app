@@ -28,7 +28,7 @@
 		"allowJs": true,
 		"noFallthroughCasesInSwitch": true,
 		"noEmit": true,
-		"module": "commonjs",
+		"module": "esnext",
 		"jsx": "react-jsx"
 	},
 	"ts-node": {

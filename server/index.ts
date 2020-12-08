@@ -4,4 +4,4 @@ const app: App = new App();
 
 app.listen();
 
-export { };
+module.exports = {};
