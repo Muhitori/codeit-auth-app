@@ -1,7 +1,6 @@
-import { Application, Request, Response } from "express";
+import { Application} from "express";
 import { AuthController } from "../controllers/AuthController";
 import { CountriesController } from "../controllers/CountriesController";
-import path from 'path';
 
 export class Routes {
 	private authController: AuthController;

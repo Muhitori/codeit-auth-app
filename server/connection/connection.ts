@@ -5,7 +5,7 @@ import { User } from '../entities/User';
 import envConfig from '../config/config';
   
 function makeConnection() {
-	const connection = createConnection({
+	createConnection({
 		...envConfig,
 		port: 5432,
 		type: "postgres",
