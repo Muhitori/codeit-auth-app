@@ -28,7 +28,7 @@
 		"noFallthroughCasesInSwitch": true,
 		"noEmit": true,
 		"module": "esnext",
-		"jsx": "react-jsx"
+		"jsx": "react"
 	},
 	"ts-node": {
 		"compilerOptions": {

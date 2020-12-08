@@ -1,6 +1,7 @@
 import { Application, Request, Response } from "express";
 import { AuthController } from "../controllers/AuthController";
 import { CountriesController } from "../controllers/CountriesController";
+import path from 'path';
 
 export class Routes {
 	private authController: AuthController;
@@ -12,9 +13,7 @@ export class Routes {
 
 	routes(app: Application): void {
 		app.route("/").get((request: Request, response: Response) => {
-			response.status(200).send({
-				message: "GET request successful.",
-			});
+			response.sendFile(path.resolve(`${__dirname}/../build/index.html`));
 		});
 
 		app.route("/signup").post(this.authController.register);
