@@ -12,9 +12,6 @@ export class Routes {
 	}
 
 	routes(app: Application): void {
-		app.route("/").get((request: Request, response: Response) => {
-			response.sendFile(path.resolve(`${__dirname}/../build/index.html`));
-		});
 
 		app.route("/signup").post(this.authController.register);
 
