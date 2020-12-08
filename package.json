@@ -1,6 +1,7 @@
 {
   "name": "codeit-auth-app",
   "version": "0.1.0",
+  "type": "module",
   "proxy": "http://localhost:9000/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
