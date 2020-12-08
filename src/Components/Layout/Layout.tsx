@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import './Layout.css';
@@ -22,7 +23,7 @@ export class Layout extends React.Component {
 					<Switch>
 						<Route path='/signin' component={SignIn} />
 						<Route path='/signup' component={SignUp} />
-						<Route exact path={'/home'} component={Home} />
+						<Route exact path={['/', '/home']} component={Home} />
 					</Switch>
 				</BrowserRouter>
 			</div>

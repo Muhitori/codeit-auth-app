@@ -13,8 +13,6 @@ class App {
 	constructor() {
 		this.app = express();
 
-		makeConnection();
-
 		this.app.use(bodyParser.json());
 
 		this.app.use(session({
@@ -35,9 +33,10 @@ class App {
 
 		this.app.use(bodyParser.urlencoded({ extended: false }));
 
-		this.routes = new Routes();
-		this.routes.routes(this.app);
-
+		makeConnection().then(() => {
+			this.routes = new Routes();
+			this.routes.routes(this.app);
+		});
 	}
 
 	public listen() {

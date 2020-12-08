@@ -1,48 +1,54 @@
 {
-	"compilerOptions": {
-		"target": "ES2020",
-		"lib": ["ES2020", "ESNext", "DOM"],
-		"incremental": true,
-		"strict": true,
-		"noImplicitAny": false,
-		"strictNullChecks": false,
-		"strictFunctionTypes": false,
-		"strictBindCallApply": false,
-		"strictPropertyInitialization": false,
-		"noImplicitThis": false,
-		"noImplicitReturns": false,
-		"noUnusedLocals": false,
-		"noUnusedParameters": false,
-		"forceConsistentCasingInFileNames": true,
-		"moduleResolution": "node",
-		"isolatedModules": true,
-		"skipLibCheck": true,
-		"removeComments": false,
-		"esModuleInterop": true,
-		"experimentalDecorators": true,
-		"allowSyntheticDefaultImports": true,
-		"resolveJsonModule": true,
-		"emitDecoratorMetadata": true,
-		"newLine": "crlf",
-		"allowJs": true,
-		"noFallthroughCasesInSwitch": true,
-		"noEmit": true,
-		"module": "esnext",
-		"jsx": "react"
-	},
-	"ts-node": {
-		"compilerOptions": {
-			"module": "commonjs",
-			"jsx": "react"
-		}
-	},
-	"exclude": [
-		"node_modules",
-		"babel.config.js",
-		"metro.config.js",
-		"jest.config.js",
-		"build",
-		"dist"
-	],
-	"include": ["src"]
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": [
+      "ES2020",
+      "ESNext",
+      "DOM"
+    ],
+    "incremental": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "strictFunctionTypes": false,
+    "strictBindCallApply": false,
+    "strictPropertyInitialization": false,
+    "noImplicitThis": false,
+    "noImplicitReturns": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "removeComments": false,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "emitDecoratorMetadata": true,
+    "newLine": "crlf",
+    "allowJs": true,
+    "noFallthroughCasesInSwitch": true,
+    "noEmit": true,
+    "module": "esnext",
+    "jsx": "react-jsx"
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs",
+      "jsx": "react"
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js",
+    "jest.config.js",
+    "build",
+    "dist"
+  ],
+  "include": [
+    "src"
+  ]
 }

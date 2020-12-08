@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from 'react';
 import { AuthService } from '../../Services/Auth.service';
 import './Home.css'
@@ -12,7 +13,7 @@ export class Home extends React.Component<any, State> {
 		super(props);
 		this.state = {
 			email: "",
-			login: "",
+			name: "",
 		};
 
 		this.authService = new AuthService();
@@ -21,7 +22,7 @@ export class Home extends React.Component<any, State> {
 	componentDidMount = () => {
 		this.setState({
 			email: "",
-			login: ""
+			name: ""
 		});
 
 		let user = this.authService.getCurrentUser();
@@ -29,7 +30,7 @@ export class Home extends React.Component<any, State> {
 		if (user) {
 			this.setState({
 				email: user.email,
-				login: user.login
+				name: user.name
 			});
 		}
 	}
@@ -40,12 +41,14 @@ export class Home extends React.Component<any, State> {
 	}
 	render() {
 		let content;
-		if (this.state.email !== "" && this.state.login !== "") {
+		if (this.state.email !== "" && this.state.name !== "") {
 			content = (
 				<div>
-					<h1>Your Login {this.state.login}!</h1>
 					<h1>Your Email {this.state.email}!</h1>
-					<button className="logout" onClick={this.handleClick}>Logout</button>
+					<h1>Your Name {this.state.name}!</h1>
+					<button className='logout' onClick={this.handleClick}>
+						Logout
+					</button>
 				</div>
 			);
 		} else {

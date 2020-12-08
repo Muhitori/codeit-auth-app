@@ -14,12 +14,12 @@ async function makeConnection() {
 		synchronize: false,
 		entities: [Country, User],
 		migrations: [path.resolve(__dirname, "..", "migrations", "**")],
-		ssl: true,
-		extra: {
-			ssl: {
-				rejectUnauthorized: false,
-			},
-		},
+		// ssl: true,
+		// extra: {
+		// 	ssl: {
+		// 		rejectUnauthorized: false,
+		// 	},
+		// },
 	});
 }
 

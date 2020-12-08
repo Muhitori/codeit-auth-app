@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from "react";
 import { User } from '../../Models/User';
 import { Country } from "../../Models/Country";
