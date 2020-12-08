@@ -1,11 +1,10 @@
 import "reflect-metadata";
 import App from "./app";
 
-function bootstrap() {
+async function bootstrap() {
   const app: App = new App();
-  app.init().then(() => {
-    app.listen();
-  })
+  await app.init();
+  app.listen();
 }
 
 bootstrap();

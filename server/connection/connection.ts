@@ -15,11 +15,13 @@ async function makeConnection() {
 		synchronize: false,
 		entities: [Country, User],
 		migrations: [path.resolve(__dirname, "..", "migrations", "**")],
-		ssl: {
-			rejectUnauthorized: false,
+		ssl: true,
+		extra: {
+			ssl: {
+				rejectUnauthorized: false,
+			},
 		},
 	});
-	console.log(connection);
 }
 
 export default makeConnection;
