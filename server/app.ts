@@ -46,13 +46,6 @@ class App {
 
 	}
 
-	public listen() {
-
-		this.app.listen(PORT, () => {
-			process.stdout.write(`App listening on port ${PORT} in ${ENV} mode\n`);
-		});
-	}
-
 }
 
 export default new App().app;
