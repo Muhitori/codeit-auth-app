@@ -18,7 +18,6 @@
 		"isolatedModules": true,
 		"skipLibCheck": true,
 		"removeComments": false,
-		"types": ["node"],
 		"esModuleInterop": true,
 		"experimentalDecorators": true,
 		"allowSyntheticDefaultImports": true,
