@@ -1,7 +1,14 @@
-const envConfig = require("./server/config/config.js");
-
 module.exports = {
-	...envConfig,
+	username: process.env.POSTGRES_USER,
+	password: process.env.POSTGRES_PASSWORD,
+	database: process.env.POSTGRES_DATABASE,
+	host: process.env.POSTGRES_HOST,
+	ssl: true,
+	extra: {
+		ssl: {
+			rejectUnauthorized: false,
+		},
+	},
 	name: "default",
 	type: "postgres",
 	synchronize: false,
