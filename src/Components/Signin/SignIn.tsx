@@ -27,27 +27,40 @@ export class SignIn extends React.Component<any, State> {
 
 	handleChange = (event) => {
 		this.setState<never>({
-				[event.target.name]: event.target.value,
+			[event.target.name]: event.target.value,
 		});
-	};
+	}
 
 	handleSubmit = (event) => {
 		event.preventDefault();
 
-		this.authService.login(
-			this.state.emailOrLogin,
-			this.state.password
-		)
-		.then((data) => {
-			this.setState({
-				redirectToHome: true,
+		if (this.state.emailOrLogin === ""
+			&& this.state.password === "") {
+			this.setMessage("You forget to enter something!");
+			return;
+		}
+
+		this.authService
+			.login(this.state.emailOrLogin, this.state.password)
+			.then((response) => {
+				if (response.status !== 200) {
+					this.setMessage(response.data.message);
+				} else {
+					this.setState({
+						redirectToHome: true,
+					});
+				}
 			});
+	}
+
+	setMessage = (msg) => {
+		this.setState({
+			message: msg,
 		});
-	};
+	}
 	render() {
-		if (this.state.redirectToHome)
-			return <Redirect push to='/home' />;
-		
+		if (this.state.redirectToHome) return <Redirect push to='/home' />;
+
 		return (
 			<div>
 				<form onSubmit={this.handleSubmit} className='signin-content'>

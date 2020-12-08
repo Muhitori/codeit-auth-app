@@ -35,17 +35,6 @@ export class UsersController {
 			.then((user: User) => !!user);
 	}
 
-	public async checkEmailAndLogin(
-		email: string,
-		login: string
-	): Promise<boolean> {
-		return await getRepository(User)
-			.findOne({
-				where: [{ email }, { login }],
-			})
-			.then((user: User) => !!user);
-	}
-
 	public async getUserByEmailOrLogin(email: string, login: string): Promise<User> {
 		try {
 			return await getRepository(User)

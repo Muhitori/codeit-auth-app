@@ -14,7 +14,7 @@ export class AuthService {
 					localStorage.setItem("user", JSON.stringify(response.data));
 				}
 
-				return response.data;
+				return response;
 			});
 	}
 
@@ -34,36 +34,16 @@ export class AuthService {
 
 	isUniqueLogin(login: string) {
 		return axios
-			.get(URL + "signup/?login=" + login)
+			.post(URL + "login", { login })
 			.then((response) => {
-				if (response.data.accessToken) {
-					localStorage.setItem("user", JSON.stringify(response.data));
-				}
-
 				return response.data;
 			});
 	}
 
 	isUniqueEmail(email: string) {
 		return axios
-			.get(URL + "signup/?email=" + email)
+			.post(URL + "email", { email })
 			.then((response) => {
-				if (response.data.accessToken) {
-					localStorage.setItem("user", JSON.stringify(response.data));
-				}
-
-				return response.data;
-			});
-	}
-
-	isLoginOrEmailValid(emailOrLogin: string) {
-		return axios
-			.get(URL + "signup/?emailOrLogin=" + emailOrLogin)
-			.then((response) => {
-				if (response.data.accessToken) {
-					localStorage.setItem("user", JSON.stringify(response.data));
-				}
-
 				return response.data;
 			});
 	}

@@ -10,3 +10,13 @@
 h1 {
 	text-align: center;
 }
+
+.logout {
+	margin-left: 25%;
+	height: 30px;
+	width: 100px;
+	border-radius: 4px;
+	background: linear-gradient(145deg, #d5eaf6, #b3c5cf);
+	box-shadow: 2px 2px 6px #a9bac4, -2px -2px 6px #e5fcff;
+	outline: none;
+}

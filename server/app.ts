@@ -19,7 +19,6 @@ class App {
 
 		this.app.use(session({
 			genid: (req) => {
-				console.log(req.sessionID);
 				return crypto
 					.createHash("sha256")
 					.update(v4())

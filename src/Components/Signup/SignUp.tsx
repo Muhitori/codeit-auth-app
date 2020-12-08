@@ -11,8 +11,6 @@ import { Redirect } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import "./SignUp.css";
 
-
-
 interface State {
 	user: User;
 	countries: Country[],
@@ -40,7 +38,7 @@ export class SignUp extends React.Component<any, State> {
 			countries: [],
 			agreement: false,
 			message: "",
-			redirectToHome: false
+			redirectToHome: false,
 		};
 
 		this.countryService = new CountryService();
@@ -58,7 +56,29 @@ export class SignUp extends React.Component<any, State> {
 			},
 		});
 	}
+
+	handleEmail = (event) => {
+		this.setMessage("");
+		let email = event.target.value;
+		let re = /\S+@\S+\.\S+/;
+
+		this.setState({
+			user: {
+				...this.state.user,
+				email: email,
+			},
+		});
+
+		if (!re.test(email)) {
+			this.setMessage("Email is not valid!");
+		}
+	}
+
 	handleDate = (date: Date) => {
+		if (date > new Date()) {
+			this.setMessage("You are to young!");
+		}
+
 		this.setState({
 			user: {
 				...this.state.user,
@@ -68,12 +88,12 @@ export class SignUp extends React.Component<any, State> {
 	};
 
 	handleCountry = (event) => {
-			this.setState({
-				user: {
-					...this.state.user,
-					countryName: event.target.selected,
-				},
-			});
+		this.setState({
+			user: {
+				...this.state.user,
+				countryName: event.target.selected,
+			},
+		});
 	};
 	handleAgreement = (event) => {
 		this.setState<never>({
@@ -82,6 +102,9 @@ export class SignUp extends React.Component<any, State> {
 	};
 
 	handleChange = (event) => {
+		if (event.target.value === "") {
+			this.setMessage("Enter something in the field " + event.target.name);
+		}
 		this.setState<never>({
 			user: {
 				...this.state.user,
@@ -93,24 +116,35 @@ export class SignUp extends React.Component<any, State> {
 	handleSubmit = (event) => {
 		event.preventDefault();
 
+		this.authService.isUniqueLogin(this.state.user.login).catch((data) => {
+			this.setMessage("Login is already taken!");
+		});
+
+		
+		this.authService.isUniqueEmail(this.state.user.email).catch((data) => {
+			this.setMessage("Email is already taken!");
+		});
+
 		if (!this.state.agreement) {
-			this.setState({
-				message: "Accept user agreement!",
-			});
+			this.setMessage("Accept user agreement!");
 			return;
 		}
-		this.authService.register(this.state.user)
-			.then((data) => {
-					this.setState({
-						redirectToHome: true,
-					});
-			})
+
+		this.authService.register(this.state.user).then((data) => {
+			this.setState({
+				redirectToHome: true,
+			});
+		});
+	};
+
+	setMessage = (msg) => {
+		this.setState({
+			message: msg,
+		});
 	};
 
 	render() {
-
-		if (this.state.redirectToHome)
-			return <Redirect push to='/home' />;
+		if (this.state.redirectToHome) return <Redirect push to='/home' />;
 
 		let options = [];
 		this.state.countries.forEach((country, index) => {
@@ -130,7 +164,7 @@ export class SignUp extends React.Component<any, State> {
 							name='email'
 							placeholder='Enter email'
 							value={this.state.user.email}
-							onChange={this.handleChange}
+							onChange={this.handleEmail}
 						/>
 					</label>
 					<label htmlFor='login'>
