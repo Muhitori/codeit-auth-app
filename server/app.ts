@@ -4,7 +4,7 @@ import session from "express-session";
 import { v4 } from 'uuid';
 import crypto  from 'crypto';
 import cors from "cors";
-import { Routes } from "./routes/Routes";
+import { Routes } from "./routes/routes";
 import makeConnection from "./connection/connection"
 
 class App {
