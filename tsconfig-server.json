@@ -3,7 +3,6 @@
 		"target": "ES2020",
 		"lib": ["ES2020", "ESNext", "DOM"],
 		"incremental": true,
-		"baseUrl": "./server",
 		"strict": true,
 		"noImplicitAny": false,
 		"strictNullChecks": false,
@@ -13,7 +12,7 @@
 		"noImplicitThis": false,
 		"noImplicitReturns": false,
 		"noUnusedLocals": false,
-		"outDir": "dist/server",
+		"outDir": "dist",
 		"noUnusedParameters": false,
 		"forceConsistentCasingInFileNames": true,
 		"moduleResolution": "node",
@@ -31,14 +30,7 @@
 		"noFallthroughCasesInSwitch": true,
 		"noEmit": false,
 		"sourceMap": true,
-		"module": "commonjs",
-		"jsx": "react-jsx"
-	},
-	"ts-node": {
-		"compilerOptions": {
-			"module": "commonjs",
-			"jsx": "react"
-		}
+		"module": "commonjs"
 	},
 	"exclude": [
 		"node_modules",
@@ -48,6 +40,5 @@
 		"build",
 		"dist"
 	],
-	"include": ["server"],
-	"extends": "./tscogfin.json"
+	"include": ["server"]
 }
