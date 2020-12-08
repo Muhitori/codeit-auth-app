@@ -30,7 +30,7 @@
 		"noFallthroughCasesInSwitch": true,
 		"noEmit": true,
 		"module": "esnext",
-		"jsx": "react-jsx"
+		"jsx": "react"
 	},
 	"ts-node": {
 		"compilerOptions": {
@@ -42,7 +42,9 @@
 		"node_modules",
 		"babel.config.js",
 		"metro.config.js",
-		"jest.config.js"
+		"jest.config.js",
+		"build",
+		"dist"
 	],
-	"include": ["server", "outDir"]
+	"include": ["server", "src"]
 }

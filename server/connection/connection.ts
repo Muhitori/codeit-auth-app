@@ -4,7 +4,7 @@ import { Country } from '../entities/Country';
 import { User } from '../entities/User';
   
 async function makeConnection() {
-  const entitiesPath = path.resolve(__dirname, "..", "entities", "./**{.ts,.js}");
+  const entitiesPath = path.resolve(__dirname, "..", "entities", "./**");
   const connection = await createConnection({
 		username: "postgres" || process.env.POSTGRES_USER,
 		password: "postgres" || process.env.POSTGRES_PASSWORD,
@@ -13,7 +13,7 @@ async function makeConnection() {
 		type: "postgres",
 		synchronize: false,
 		entities: [Country, User],
-		migrations: [path.resolve(__dirname, "..", "migrations", "*.ts")],
+		migrations: [path.resolve(__dirname, "..", "migrations", "**")],
 		ssl: true,
 		extra: {
 			ssl: {
