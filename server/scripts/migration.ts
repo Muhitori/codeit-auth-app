@@ -21,8 +21,7 @@ async function bootstrap() {
 		console.log("============== finished ==============");
 		console.log(
 			`============== ${migrations.length} were executed ==============`,
-			migrations.map(({ name }) => name).join(", ")
-		);
+		migrations.map(({ name }) => name).join(", "));
 		process.exit(0);
 	} catch (err) {
 		console.error("Migration error");
