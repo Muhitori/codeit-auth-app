@@ -12,14 +12,16 @@ export class Routes {
 
 	routes(app: Application): void {
 
-		app.route("/signup").post(this.authController.register);
+		app.route("/api/auth/signup").post(this.authController.register);
 
-		app.route("/email").post(this.authController.checkEmail);
+		app.route("/api/auth/email").post(this.authController.checkEmail);
 
-		app.route("/login").post(this.authController.checkLogin);
+		app.route("/api/auth/login").post(this.authController.checkLogin);
 
-		app.route("/signin").post(this.authController.login);
+		app.route("/api/auth/signin").post(this.authController.login);
 
-		app.route("/countries").get(this.countriesController.getCountryNames);
+		app
+			.route("/api/countries")
+			.get(this.countriesController.getCountryNames);
 	}
 }

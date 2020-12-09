@@ -1,9 +1,6 @@
 import axios from "axios";
 
-const URL =
-	process.env.NODE_ENV === "production"
-		? "https://ec2-54-75-248-49.eu-west-1.compute.amazonaws.com:9000/"
-		: "http://localhost:9000/";
+const URL = "/api/";
 
 export class CountryService {
 	getCountries() {
