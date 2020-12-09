@@ -51,7 +51,7 @@ export class User{
 		this.password = bcrypt.hashSync(this.password, 2);
 	}
 
-	unecryptedPasswordIsValid(password: string) {
-		return bcrypt.compareSync(password, this.password);
+	async unecryptedPasswordIsValid(password: string) {
+		return await bcrypt.compare(password, this.password);
 	}
 }

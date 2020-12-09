@@ -7,7 +7,7 @@ export class UsersController {
 		try {
 			let user = getRepository(User).findOne({
 				select: ['email', 'login'],
-				where: id
+				where: { id }
 			});
 			return response.send(200).send({ user: user });
 		} catch (error) {
@@ -22,7 +22,7 @@ export class UsersController {
 	public async checkEmail(email: string) {
 		return await getRepository(User)
 			.findOne({
-				where: email
+				where: { email }
 			})
 			.then((user: User) => !!user);
 	}
@@ -30,7 +30,7 @@ export class UsersController {
 	public async checkLogin(login: string) {
 		return await getRepository(User)
 			.findOne({
-				where: login
+				where: { login }
 			})
 			.then((user: User) => !!user);
 	}

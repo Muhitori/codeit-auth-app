@@ -15,9 +15,7 @@ export class CountriesController {
 		let repository = getRepository(Country);
 		return repository
 			.findOne({
-				where: {
-					name
-				},
+				where: { name },
 			})
 			.then((country: Country) => {
 				return country.id

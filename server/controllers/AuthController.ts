@@ -7,6 +7,7 @@ import config from "../config/secretConfig"
 
 
 export class AuthController {
+
 	async login(request: Request, response: Response) {
 		try {
 			const users = new UsersController();
@@ -20,7 +21,6 @@ export class AuthController {
 			if (!user) {
 				return response.status(201).send({ message: "Invalid email or login!" });
 			}
-
 			if (!user.unecryptedPasswordIsValid(password)) {
 				return response.status(201).send({ message: "Invalid password!" });
 			}

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { User } from '../Models/User';
 
-const URL = "/api/auth";
+const URL = "/api/auth/";
 export class AuthService {
 	login(emailOrLogin: string, password: string) {
 		return axios

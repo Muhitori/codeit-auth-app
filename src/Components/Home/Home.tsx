@@ -35,25 +35,30 @@ export class Home extends React.Component<any, State> {
 		}
 	}
 
+	decideContent = () => {
+			if (this.state.email !== "" && this.state.name !== "") {
+				return (
+					<div>
+						<h1>Your Email {this.state.email}!</h1>
+						<h1>Your Name {this.state.name}!</h1>
+						<div className="centered">
+							<button className='logout' onClick={this.handleClick}>
+								Logout
+							</button>
+						</div>
+					</div>
+				);
+			} else {
+				return <h1>Welcome Guest!</h1>;
+			}
+	}
+
 	handleClick = event => {
 		this.authService.logout();
 		window.location.reload();
 	}
 	render() {
-		let content;
-		if (this.state.email !== "" && this.state.name !== "") {
-			content = (
-				<div>
-					<h1>Your Email {this.state.email}!</h1>
-					<h1>Your Name {this.state.name}!</h1>
-					<button className='logout' onClick={this.handleClick}>
-						Logout
-					</button>
-				</div>
-			);
-		} else {
-			content = <h1>Welcome Guest!</h1>;
-		}
+		let content = this.decideContent();
 
 		return <div className='home-content'>{content}</div>;
 	}

@@ -4,8 +4,8 @@ import { Country } from '../entities/Country';
 import { User } from '../entities/User';
 import envConfig from '../config/config.js';
   
-function makeConnection() {
-	createConnection({
+async function makeConnection() {
+	await createConnection({
 		...envConfig,
 		port: 5432,
 		type: "postgres",
